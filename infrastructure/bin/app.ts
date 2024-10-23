@@ -1,6 +1,14 @@
 #!/usr/bin/env node
-import * as cdk from 'aws-cdk-lib';
-import { TestingStack } from '../lib/testing-stack';
+import {App, AppProps, Environment} from "aws-cdk-lib";
+import { TestingStack } from '../stacks/testing-stack';
 
-const app = new cdk.App();
-new TestingStack(app, 'TestingStack');
+export class TestApplication extends App {
+    constructor(propsRaw?: AppProps) {
+        super(propsRaw);
+        const testingStack = new TestingStack(this, 'TestingStack');
+    }
+}
+
+
+new TestApplication();
+
