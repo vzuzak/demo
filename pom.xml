@@ -48,6 +48,83 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jkube</groupId>
+				<artifactId>kubernetes-maven-plugin</artifactId>
+				<version>1.17.0</version>
+				<configuration>
+					<images>
+						<image>
+							<name>rbdms-dev/backend:${CI_COMMIT_SHA}</name>
+							<alias>rbdms-image</alias>
+							<build>
+								<from>docker.io/amazoncorretto:22</from>
+								<ports>
+									<port>8088/tcp</port>
+									<port>8089/tcp</port>
+								</ports>
+								<workdir>/maven</workdir>
+								<user>operator</user>
+								<assembly>
+									<layers>
+										<layer>
+											<files>
+<!--												<file>-->
+<!--													<source>${project.basedir}/target/${project.artifactId}-${project.version}.jar</source>-->
+<!--													<outputDirectory>.</outputDirectory>-->
+<!--												</file>-->
+<!--												<file>-->
+<!--													<source>${project.basedir}/src/main/resources/cert/Amazon_RDS_eu_central_1_Root_CA_ECC384_G1.cer</source>-->
+<!--													<outputDirectory>.</outputDirectory>&lt;!&ndash; Path to your certificate &ndash;&gt;-->
+<!--												</file>-->
+<!--												<file>-->
+<!--													<source>${project.basedir}/src/main/resources/cert/Amazon_RDS_eu_central_1_Root_CA_RSA2048_G1.cer</source>-->
+<!--													<outputDirectory>.</outputDirectory>&lt;!&ndash; Path to your certificate &ndash;&gt;-->
+<!--												</file>-->
+<!--												<file>-->
+<!--													<source>${project.basedir}/src/main/resources/cert/Amazon_RDS_eu_central_1_Root_CA_RSA4096_G1.cer</source>-->
+<!--													<outputDirectory>.</outputDirectory>&lt;!&ndash; Path to your certificate &ndash;&gt;-->
+<!--												</file>-->
+											</files>
+										</layer>
+									</layers>
+								</assembly>
+								<runCmds>
+<!--									<run>keytool -importcert -trustcacerts -cacerts -file /maven/Amazon_RDS_eu_central_1_Root_CA_ECC384_G1.cer -alias Amazon_RDS_eu_central_1_Root_CA_ECC384_G1 -storepass changeit -noprompt</run>-->
+<!--									<run>keytool -importcert -trustcacerts -cacerts -file /maven/Amazon_RDS_eu_central_1_Root_CA_RSA2048_G1.cer -alias Amazon_RDS_eu_central_1_Root_CA_RSA2048_G1 -storepass changeit -noprompt</run>-->
+<!--									<run>keytool -importcert -trustcacerts -cacerts -file /maven/Amazon_RDS_eu_central_1_Root_CA_RSA4096_G1.cer -alias Amazon_RDS_eu_central_1_Root_CA_RSA4096_G1 -storepass changeit -noprompt</run>-->
+								</runCmds>
+								<entryPoint>
+									<shell>java -jar /maven/${project.artifactId}-${project.version}.jar</shell>
+								</entryPoint>
+							</build>
+						</image>
+					</images>
+				</configuration>
+				<executions>
+					<execution>
+						<id>build</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>push</id>
+						<phase>install</phase>
+						<goals>
+							<goal>push</goal>
+						</goals>
+						<configuration>
+							<authConfig>
+								<username>${AWS_ACCESS_KEY_ID}</username>
+								<password>${AWS_SECRET_ACCESS_KEY}</password>
+							</authConfig>
+							<pushRegistry>${DOCKER_REGISTRY}</pushRegistry>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
