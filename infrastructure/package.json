@@ -1,19 +1,14 @@
 {
-  "name": "test-cdk",
+  "name": "rb-dms-infrastructure-test",
   "version": "0.1.0",
   "bin": {
-    "infrastructure": "bin/app.js"
+    "infrastructure": "bin/rb-dms-infrastructure-test.js"
   },
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk"
-  },
-  "dependencies": {
-    "aws-cdk-lib": "2.150.0",
-    "aws-sdk": "^2.1691.0",
-    "constructs": "^10.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
@@ -23,5 +18,12 @@
     "aws-cdk": "2.150.0",
     "ts-node": "^10.9.2",
     "typescript": "~5.5.3"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.150.0",
+    "aws-sdk": "^2.1691.0",
+    "constructs": "^10.0.0",
+    "source-map-support": "^0.5.21",
+    "ts-postgres": "^2.0.4"
   }
 }

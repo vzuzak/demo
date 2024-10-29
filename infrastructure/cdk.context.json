@@ -1,0 +1,11 @@
+{
+  "availability-zones:account=381492100636:region=eu-central-1": [
+    "eu-central-1a",
+    "eu-central-1b",
+    "eu-central-1c"
+  ],
+  "hosted-zone:account=381492100636:domainName=rbdms.viableone.com:region=eu-central-1": {
+    "Id": "/hostedzone/Z07727333EMA07BGS2D9W",
+    "Name": "rbdms.viableone.com."
+  }
+}
