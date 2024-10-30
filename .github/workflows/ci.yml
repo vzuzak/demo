@@ -58,7 +58,8 @@ jobs:
           cache: 'npm'
           cache-dependency-path: infrastructure/package-lock.json
       - run: npm i -D esbuild
-      - run: cd infrastructure
-      - run: npm ci
-      - run: npm run cdk --deploy ${{ env.API_STACK_CDK_NAME }} --context environment=${{ env.API_ENVIRONMENT }} --require-approval never --parameters ${{ env.API_STACK_NAME }}:ImageTag=${{ github.sha }}
+      - run: |
+          cd infrastructure
+          npm ci
+          npm run cdk --deploy ${{ env.API_STACK_CDK_NAME }} --context environment=${{ env.API_ENVIRONMENT }} --require-approval never --parameters ${{ env.API_STACK_NAME }}:ImageTag=${{ github.sha }}
 
