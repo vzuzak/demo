@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: aws deploy
 
 on:
   push:
