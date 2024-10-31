@@ -5,7 +5,7 @@ import { TestingStack } from '../stacks/testing-stack';
 export class TestApplication extends App {
     constructor(propsRaw?: AppProps) {
         super(propsRaw);
-        const testingStack = new TestingStack(this, 'TestingStack');
+        const testingStack = new TestingStack(this, "TestingStack");
     }
 }
 
